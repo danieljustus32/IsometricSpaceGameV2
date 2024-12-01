@@ -1,0 +1,103 @@
+[gd_scene load_steps=11 format=3 uid="uid://dxiagph5kvn3o"]
+
+[ext_resource type="Texture2D" uid="uid://b5y0nihtec0wd" path="res://assets/textures/checker_512x512/checker_pink_512x512.png" id="1_m4mr2"]
+[ext_resource type="Texture2D" uid="uid://dmkmfiefbvh01" path="res://assets/textures/checker_512x512/checker_cyan_512x512.png" id="2_236vn"]
+[ext_resource type="PackedScene" uid="uid://bqh6kn86nnoox" path="res://scenes/player_placeholder.tscn" id="3_kc21n"]
+[ext_resource type="Script" path="res://scenes/camera_pivot.gd" id="4_cqsyl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ygp8j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jw5pd"]
+albedo_texture = ExtResource("1_m4mr2")
+uv1_scale = Vector3(60, 60, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ppd8p"]
+size = Vector3(60, 1, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m0d0t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_64qgt"]
+albedo_texture = ExtResource("2_236vn")
+uv1_scale = Vector3(58, 8, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hna0w"]
+size = Vector3(58, 8, 1)
+
+[node name="Root" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Floors" type="Node3D" parent="Environment"]
+
+[node name="CheckeredFloor" type="StaticBody3D" parent="Environment/Floors"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Floors/CheckeredFloor"]
+transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, 0, 0)
+mesh = SubResource("BoxMesh_ygp8j")
+surface_material_override/0 = SubResource("StandardMaterial3D_jw5pd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floors/CheckeredFloor"]
+shape = SubResource("BoxShape3D_ppd8p")
+
+[node name="Walls" type="Node3D" parent="Environment"]
+
+[node name="NorthWall" type="StaticBody3D" parent="Environment/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 29.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/NorthWall"]
+transform = Transform3D(58, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_m0d0t")
+surface_material_override/0 = SubResource("StandardMaterial3D_64qgt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Walls/NorthWall"]
+shape = SubResource("BoxShape3D_hna0w")
+
+[node name="SouthWall" type="StaticBody3D" parent="Environment/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -29.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/SouthWall"]
+transform = Transform3D(58, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_m0d0t")
+surface_material_override/0 = SubResource("StandardMaterial3D_64qgt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Walls/SouthWall"]
+shape = SubResource("BoxShape3D_hna0w")
+
+[node name="WestWall" type="StaticBody3D" parent="Environment/Walls"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 29.5, 4.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/WestWall"]
+transform = Transform3D(60, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_m0d0t")
+surface_material_override/0 = SubResource("StandardMaterial3D_64qgt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Walls/WestWall"]
+shape = SubResource("BoxShape3D_hna0w")
+
+[node name="EastWall" type="StaticBody3D" parent="Environment/Walls"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -29.5, 4.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/EastWall"]
+transform = Transform3D(60, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_m0d0t")
+surface_material_override/0 = SubResource("StandardMaterial3D_64qgt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Walls/EastWall"]
+shape = SubResource("BoxShape3D_hna0w")
+
+[node name="Props" type="Node3D" parent="Environment"]
+
+[node name="Mage" parent="." groups=["PlayerCharacter"] instance=ExtResource("3_kc21n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6438, 0.5, -1.65063)
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6438, 0.5, -1.65063)
+script = ExtResource("4_cqsyl")
+
+[node name="SkyCamera" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 75, 75)
+projection = 1
+size = 30.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 36, 0)
