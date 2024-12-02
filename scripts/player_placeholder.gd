@@ -25,6 +25,8 @@ func _physics_process(delta: float) -> void:
 		# Handle character rotation to look in the direction of movement
 		_theta = wrapf(atan2(input_dir.x, input_dir.y) - rotation.y, -PI, PI)
 		rotation.y += clamp(_rotation_speed * delta, 0, abs(_theta)) * sign(_theta)
+		# Movement is 3D, sure, but we treat it as if it's 2D so as not to bork rotation etc.
+		# Otherwise, when character rotates, velocity is relative to how they're facing
 		velocity.x = input_dir.x * SPEED
 		velocity.z = input_dir.y * SPEED
 	else:

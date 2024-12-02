@@ -95,7 +95,7 @@ update_rotation = false
 update_scale = false
 
 [node name="CameraPivot" type="Node3D" parent="." groups=["PlayerCharacter"]]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("4_cqsyl")
 
 [node name="SkyCamera" type="Camera3D" parent="CameraPivot"]
