@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b5y0nihtec0wd" path="res://assets/textures/checker_512x512/checker_pink_512x512.png" id="1_m4mr2"]
 [ext_resource type="Texture2D" uid="uid://dmkmfiefbvh01" path="res://assets/textures/checker_512x512/checker_cyan_512x512.png" id="2_236vn"]
 [ext_resource type="PackedScene" uid="uid://bqh6kn86nnoox" path="res://scenes/player_placeholder.tscn" id="3_kc21n"]
-[ext_resource type="Script" path="res://scenes/camera_pivot.gd" id="4_cqsyl"]
+[ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="4_cqsyl"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ygp8j"]
 
@@ -88,10 +88,14 @@ shape = SubResource("BoxShape3D_hna0w")
 [node name="Props" type="Node3D" parent="Environment"]
 
 [node name="Mage" parent="." groups=["PlayerCharacter"] instance=ExtResource("3_kc21n")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.6438, 0.5, -1.65063)
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Mage"]
+remote_path = NodePath("../../CameraPivot")
+update_rotation = false
+update_scale = false
 
 [node name="CameraPivot" type="Node3D" parent="." groups=["PlayerCharacter"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6438, 0.5, -1.65063)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 script = ExtResource("4_cqsyl")
 
 [node name="SkyCamera" type="Camera3D" parent="CameraPivot"]

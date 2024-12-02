@@ -9,8 +9,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# Camera will always track the position of player, keepin them at center screen
-	global_position = player.global_position
+
 	
 	# Handle camera rotation
 	if Input.is_action_pressed("rotate_camera_left"):
