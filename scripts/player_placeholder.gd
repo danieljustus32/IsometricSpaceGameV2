@@ -1,9 +1,11 @@
 extends CharacterBody3D
 
 @onready var camera_pivot = get_tree().get_nodes_in_group("PlayerCharacter")[1]
+@export var _rotation_speed : float = TAU
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+var _theta : float
 
 
 func _physics_process(delta: float) -> void:
@@ -20,8 +22,11 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("move_right", "move_left", "move_down", "move_up")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		# Handle character rotation to look in the direction of movement
+		_theta = wrapf(atan2(input_dir.x, input_dir.y) - rotation.y, -PI, PI)
+		rotation.y += clamp(_rotation_speed * delta, 0, abs(_theta)) * sign(_theta)
+		velocity.x = input_dir.x * SPEED
+		velocity.z = input_dir.y * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
