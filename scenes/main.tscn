@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dxiagph5kvn3o"]
 
-[ext_resource type="Texture2D" uid="uid://b5y0nihtec0wd" path="res://assets/textures/checker_512x512/checker_pink_512x512.png" id="1_m4mr2"]
+[ext_resource type="Texture2D" uid="uid://bn62nc7otk428" path="res://assets/textures/pixelated-moon-background-many-meteorite-250nw-2437644363.png" id="1_71d1a"]
 [ext_resource type="Texture2D" uid="uid://dmkmfiefbvh01" path="res://assets/textures/checker_512x512/checker_cyan_512x512.png" id="2_236vn"]
 [ext_resource type="PackedScene" uid="uid://bqh6kn86nnoox" path="res://scenes/player_placeholder.tscn" id="3_kc21n"]
 [ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="4_cqsyl"]
@@ -8,8 +8,8 @@
 [sub_resource type="BoxMesh" id="BoxMesh_ygp8j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jw5pd"]
-albedo_texture = ExtResource("1_m4mr2")
-uv1_scale = Vector3(60, 60, 60)
+albedo_texture = ExtResource("1_71d1a")
+uv1_scale = Vector3(600, 600, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ppd8p"]
 size = Vector3(60, 1, 60)
@@ -32,7 +32,7 @@ size = Vector3(58, 8, 1)
 [node name="CheckeredFloor" type="StaticBody3D" parent="Environment/Floors"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Floors/CheckeredFloor"]
-transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, 0, 0)
+transform = Transform3D(600, 0, 0, 0, 2, 0, 0, 0, 600, 0, 0, 0)
 mesh = SubResource("BoxMesh_ygp8j")
 surface_material_override/0 = SubResource("StandardMaterial3D_jw5pd")
 
@@ -43,6 +43,7 @@ shape = SubResource("BoxShape3D_ppd8p")
 
 [node name="NorthWall" type="StaticBody3D" parent="Environment/Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 29.5)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/NorthWall"]
 transform = Transform3D(58, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
@@ -54,6 +55,7 @@ shape = SubResource("BoxShape3D_hna0w")
 
 [node name="SouthWall" type="StaticBody3D" parent="Environment/Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -29.5)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/SouthWall"]
 transform = Transform3D(58, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
@@ -65,6 +67,7 @@ shape = SubResource("BoxShape3D_hna0w")
 
 [node name="WestWall" type="StaticBody3D" parent="Environment/Walls"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 29.5, 4.5, 0)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/WestWall"]
 transform = Transform3D(60, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
@@ -76,6 +79,7 @@ shape = SubResource("BoxShape3D_hna0w")
 
 [node name="EastWall" type="StaticBody3D" parent="Environment/Walls"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -29.5, 4.5, 0)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/EastWall"]
 transform = Transform3D(60, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)

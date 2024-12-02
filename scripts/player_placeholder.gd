@@ -27,6 +27,7 @@ func _physics_process(delta: float) -> void:
 		rotation.y += clamp(_rotation_speed * delta, 0, abs(_theta)) * sign(_theta)
 		# Movement is 3D, sure, but we treat it as if it's 2D so as not to bork rotation etc.
 		# Otherwise, when character rotates, velocity is relative to how they're facing
+		# TODO No it's not lolol
 		velocity.x = input_dir.x * SPEED
 		velocity.z = input_dir.y * SPEED
 	else:
