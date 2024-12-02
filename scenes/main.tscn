@@ -88,9 +88,9 @@ shape = SubResource("BoxShape3D_hna0w")
 [node name="Props" type="Node3D" parent="Environment"]
 
 [node name="Mage" parent="." groups=["PlayerCharacter"] instance=ExtResource("3_kc21n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6438, 0.5, -1.65063)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.6438, 0.5, -1.65063)
 
-[node name="CameraPivot" type="Node3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="." groups=["PlayerCharacter"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6438, 0.5, -1.65063)
 script = ExtResource("4_cqsyl")
 
