@@ -13,11 +13,10 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("rotate_camera_left"):
 		rotation_degrees.y -= 1
 		player.rotation_degrees.y -= 1
-		
 	if Input.is_action_pressed("rotate_camera_right"):
 		rotation_degrees.y += 1
 		player.rotation_degrees.y += 1
-
+		
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("zoom_in"):
 		if sky_camera.size > 5:
