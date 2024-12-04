@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgyi2smjbrd1v"]
+
+[ext_resource type="PackedScene" path="res://menus/scenes/menus/options_menu/master_options_menu.tscn" id="1_7bn7k"]
+[ext_resource type="PackedScene" path="res://menus/scenes/menus/options_menu/input/input_options_menu_with_mouse_sensitivity.tscn" id="2_03fdf"]
+[ext_resource type="PackedScene" path="res://menus/scenes/menus/options_menu/audio/audio_options_menu.tscn" id="3_nutet"]
+[ext_resource type="PackedScene" path="res://menus/scenes/menus/options_menu/video/video_options_menu_with_extras.tscn" id="4_xa1mg"]
+
+[node name="MasterOptionsMenu" instance=ExtResource("1_7bn7k")]
+
+[node name="Controls" parent="TabContainer" index="1" instance=ExtResource("2_03fdf")]
+layout_mode = 2
+show_all_actions = true
+
+[node name="Audio" parent="TabContainer" index="2" instance=ExtResource("3_nutet")]
+visible = false
+layout_mode = 2
+
+[node name="Video" parent="TabContainer" index="3" instance=ExtResource("4_xa1mg")]
+visible = false
+layout_mode = 2
