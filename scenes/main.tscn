@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://dxiagph5kvn3o"]
 
 [ext_resource type="Texture2D" uid="uid://bn62nc7otk428" path="res://assets/textures/pixelated-moon-background-many-meteorite-250nw-2437644363.png" id="1_71d1a"]
-[ext_resource type="PackedScene" uid="uid://77mu4lrhawve" path="res://scenes/ground_tile_01.tscn" id="2_3o4yn"]
+[ext_resource type="PackedScene" path="res://scenes/ground_tile_01.tscn" id="2_3o4yn"]
 [ext_resource type="PackedScene" uid="uid://bqh6kn86nnoox" path="res://scenes/player_placeholder.tscn" id="3_kc21n"]
 [ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="4_cqsyl"]
-[ext_resource type="PackedScene" uid="uid://ccfnbm7t4cp0g" path="res://scenes/lander.tscn" id="4_hw78a"]
+[ext_resource type="PackedScene" path="res://scenes/lander.tscn" id="4_hw78a"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ygp8j"]
 
