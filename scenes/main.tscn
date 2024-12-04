@@ -1,27 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxiagph5kvn3o"]
+[gd_scene load_steps=9 format=3 uid="uid://dxiagph5kvn3o"]
 
-[ext_resource type="Texture2D" uid="uid://b5y0nihtec0wd" path="res://assets/textures/checker_512x512/checker_pink_512x512.png" id="1_m4mr2"]
-[ext_resource type="Texture2D" uid="uid://dmkmfiefbvh01" path="res://assets/textures/checker_512x512/checker_cyan_512x512.png" id="2_236vn"]
+[ext_resource type="Texture2D" uid="uid://bn62nc7otk428" path="res://assets/textures/pixelated-moon-background-many-meteorite-250nw-2437644363.png" id="1_71d1a"]
+[ext_resource type="PackedScene" uid="uid://77mu4lrhawve" path="res://scenes/ground_tile_01.tscn" id="2_3o4yn"]
 [ext_resource type="PackedScene" uid="uid://bqh6kn86nnoox" path="res://scenes/player_placeholder.tscn" id="3_kc21n"]
 [ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="4_cqsyl"]
+[ext_resource type="PackedScene" uid="uid://ccfnbm7t4cp0g" path="res://scenes/lander.tscn" id="4_hw78a"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ygp8j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jw5pd"]
-albedo_texture = ExtResource("1_m4mr2")
-uv1_scale = Vector3(60, 60, 60)
+albedo_texture = ExtResource("1_71d1a")
+uv1_scale = Vector3(600, 600, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ppd8p"]
-size = Vector3(60, 1, 60)
-
-[sub_resource type="BoxMesh" id="BoxMesh_m0d0t"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_64qgt"]
-albedo_texture = ExtResource("2_236vn")
-uv1_scale = Vector3(58, 8, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hna0w"]
-size = Vector3(58, 8, 1)
+size = Vector3(600, 1, 600)
 
 [node name="Root" type="Node3D"]
 
@@ -29,61 +21,35 @@ size = Vector3(58, 8, 1)
 
 [node name="Floors" type="Node3D" parent="Environment"]
 
-[node name="CheckeredFloor" type="StaticBody3D" parent="Environment/Floors"]
+[node name="MoonTextureFloor" type="StaticBody3D" parent="Environment/Floors"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Floors/CheckeredFloor"]
-transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, 0, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Floors/MoonTextureFloor"]
+transform = Transform3D(600, 0, 0, 0, 2, 0, 0, 0, 600, 0, 0, 0)
 mesh = SubResource("BoxMesh_ygp8j")
 surface_material_override/0 = SubResource("StandardMaterial3D_jw5pd")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floors/CheckeredFloor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floors/MoonTextureFloor"]
 shape = SubResource("BoxShape3D_ppd8p")
 
+[node name="GroundTile01" parent="Environment/Floors" instance=ExtResource("2_3o4yn")]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0.814558, 0)
+
+[node name="GroundTile02" parent="Environment/Floors" instance=ExtResource("2_3o4yn")]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, -5, 0.814558, 0)
+
+[node name="GroundTile03" parent="Environment/Floors" instance=ExtResource("2_3o4yn")]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, -10, 0.814558, 0)
+
+[node name="GroundTile04" parent="Environment/Floors" instance=ExtResource("2_3o4yn")]
+transform = Transform3D(-0.02, 0, -1.74846e-09, 0, 0.02, 0, 1.74846e-09, 0, -0.02, -5, 0.814558, -10)
+
+[node name="GroundTile05" parent="Environment/Floors" instance=ExtResource("2_3o4yn")]
+transform = Transform3D(-0.02, 0, -1.74846e-09, 0, 0.02, 0, 1.74846e-09, 0, -0.02, 0, 0.814558, -10)
+
+[node name="GroundTile06" parent="Environment/Floors" instance=ExtResource("2_3o4yn")]
+transform = Transform3D(-0.02, 0, -1.74846e-09, 0, 0.02, 0, 1.74846e-09, 0, -0.02, 5, 0.814558, -10)
+
 [node name="Walls" type="Node3D" parent="Environment"]
-
-[node name="NorthWall" type="StaticBody3D" parent="Environment/Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 29.5)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/NorthWall"]
-transform = Transform3D(58, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_m0d0t")
-surface_material_override/0 = SubResource("StandardMaterial3D_64qgt")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Walls/NorthWall"]
-shape = SubResource("BoxShape3D_hna0w")
-
-[node name="SouthWall" type="StaticBody3D" parent="Environment/Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -29.5)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/SouthWall"]
-transform = Transform3D(58, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_m0d0t")
-surface_material_override/0 = SubResource("StandardMaterial3D_64qgt")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Walls/SouthWall"]
-shape = SubResource("BoxShape3D_hna0w")
-
-[node name="WestWall" type="StaticBody3D" parent="Environment/Walls"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 29.5, 4.5, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/WestWall"]
-transform = Transform3D(60, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_m0d0t")
-surface_material_override/0 = SubResource("StandardMaterial3D_64qgt")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Walls/WestWall"]
-shape = SubResource("BoxShape3D_hna0w")
-
-[node name="EastWall" type="StaticBody3D" parent="Environment/Walls"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -29.5, 4.5, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Walls/EastWall"]
-transform = Transform3D(60, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_m0d0t")
-surface_material_override/0 = SubResource("StandardMaterial3D_64qgt")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Walls/EastWall"]
-shape = SubResource("BoxShape3D_hna0w")
 
 [node name="Props" type="Node3D" parent="Environment"]
 
@@ -101,7 +67,9 @@ script = ExtResource("4_cqsyl")
 [node name="SkyCamera" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 75, 75)
 projection = 1
-size = 30.0
+size = 20.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 36, 0)
+
+[node name="Lander" parent="." instance=ExtResource("4_hw78a")]

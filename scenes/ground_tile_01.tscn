@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://77mu4lrhawve"]
+
+[ext_resource type="ArrayMesh" uid="uid://cnrdum4srwu7m" path="res://assets/meshes/floors/GroundTile_4.obj" id="1_y8v1x"]
+[ext_resource type="Texture2D" uid="uid://cd57s6cu0tek8" path="res://assets/textures/Bakes/T_Environment_diffuse.png" id="2_7h5nt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u1cpr"]
+albedo_texture = ExtResource("2_7h5nt")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4ams3"]
+size = Vector3(258.669, 13, 252.432)
+
+[node name="GroundTile01" type="StaticBody3D"]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
+
+[node name="MeshInstanceGround" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_y8v1x")
+surface_material_override/0 = SubResource("StandardMaterial3D_u1cpr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 5, -124.597)
+shape = SubResource("BoxShape3D_4ams3")
