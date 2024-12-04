@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @onready var camera_pivot = get_tree().get_nodes_in_group("PlayerCharacter")[1]
 @export var _rotation_speed : float = TAU
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 const SPEED = 0.1
 const JUMP_VELOCITY = 4.5
@@ -12,6 +13,7 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -21,12 +23,18 @@ func _physics_process(delta: float) -> void:
 	var forward = camera_pivot.transform.basis.z.normalized() * SPEED
 	if Input.is_action_pressed("move_up"):
 		transform.origin += -forward
+		animation_player.play("Running_B")
 	if Input.is_action_pressed("move_down"):
 		transform.origin += forward
 	if Input.is_action_pressed("move_right"):
 		transform.origin += -forward.cross(Vector3.UP) / 1.5
+		animation_player.play("Running_Strafe_Right")
 	if Input.is_action_pressed("move_left"):
 		transform.origin += forward.cross(Vector3.UP) / 1.5
+		animation_player.play("Running_Strafe_Left")
+	elif not Input.is_anything_pressed():
+	# Player is idle
+		animation_player.play("Idle")
 	
 
 	# Get the input direction and handle the movement/deceleration.
