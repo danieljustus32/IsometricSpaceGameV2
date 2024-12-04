@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccfnbm7t4cp0g"]
+
+[ext_resource type="ArrayMesh" uid="uid://bcpv7kuwcjwfc" path="res://assets/meshes/vehicles/Lander.obj" id="1_3lrxd"]
+[ext_resource type="Texture2D" uid="uid://ck5haykryi2u3" path="res://assets/textures/Bakes/T_Vehicles_diffuse.png" id="2_t7pk6"]
+[ext_resource type="Texture2D" uid="uid://dy367xkw1p1fn" path="res://assets/textures/Bakes/T_Vehicles_emissive.png" id="3_20f3q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a84b8"]
+albedo_texture = ExtResource("2_t7pk6")
+emission_enabled = true
+emission_texture = ExtResource("3_20f3q")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c6c1r"]
+size = Vector3(194.468, 362.376, 241.3)
+
+[node name="Lander" type="StaticBody3D"]
+transform = Transform3D(-0.0147601, 0, -0.0134959, 0, 0.02, 0, 0.0134959, 0, -0.0147601, 8.28885, 0, -0.451126)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_3lrxd")
+surface_material_override/0 = SubResource("StandardMaterial3D_a84b8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.36745, 178.688, 4.84991)
+shape = SubResource("BoxShape3D_c6c1r")

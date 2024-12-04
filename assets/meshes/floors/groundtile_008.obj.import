@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cawpf8aafbi1r"
+path="res://.godot/imported/groundtile_008.obj-0a30e9c52690ff40074a63d10197c9dd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/groundtile_008.obj-0a30e9c52690ff40074a63d10197c9dd.mesh"]
+
+source_file="res://assets/meshes/floors/groundtile_008.obj"
+dest_files=["res://.godot/imported/groundtile_008.obj-0a30e9c52690ff40074a63d10197c9dd.mesh", "res://.godot/imported/groundtile_008.obj-0a30e9c52690ff40074a63d10197c9dd.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

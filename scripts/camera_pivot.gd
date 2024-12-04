@@ -23,6 +23,6 @@ func _input(event: InputEvent) -> void:
 			sky_camera.size -= 1
 			
 	if Input.is_action_just_pressed("zoom_out"):
-		if sky_camera.size < 100:
+		if sky_camera.size < 50:
 			sky_camera.size += 1
 			
