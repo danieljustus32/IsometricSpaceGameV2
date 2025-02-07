@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Globals="*res://scripts/autoload/globals.gd"
+StateMachine="*res://scripts/autoload/state_machine.gd"
 SignalBus="*res://scripts/autoload/signal_bus.gd"
 
 [display]

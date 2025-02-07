@@ -6,8 +6,6 @@ extends CharacterBody3D
 
 const SPEED = 0.1
 const JUMP_VELOCITY = 4.5
-var _theta : float
-
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
