@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 	# If there is movement input, determine movement direction
 	if input_dir.length() > 0:
 		var move_dir = (camera_pivot.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		transform.origin += -move_dir * SPEED
+		transform.origin -= move_dir * SPEED
 
 		# Calculate target rotation based on movement direction
 		var target_rotation = atan2(-move_dir.x, -move_dir.z)
