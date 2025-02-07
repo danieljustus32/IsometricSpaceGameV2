@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3yw4o1tddsja"]
+
+[ext_resource type="Script" path="res://scripts/character_stats_ui.gd" id="1_tm7a6"]
+[ext_resource type="Texture2D" uid="uid://dubimv3jqltdf" path="res://assets/textures/UI_background.png" id="2_aklcq"]
+[ext_resource type="Shader" path="res://assets/shaders/character_stats_ui_health.gdshader" id="2_h3tmb"]
+[ext_resource type="Script" path="res://scripts/autoload/signal_bus.gd" id="3_cru50"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iqijp"]
+shader = ExtResource("2_h3tmb")
+shader_parameter/glow_intensity = 0.5
+shader_parameter/pulse_speed = 1.292
+shader_parameter/fill_color = Color(0, 0.576471, 0.988235, 1)
+
+[node name="CharacterStatsUI" type="Control"]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_tm7a6")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+material = SubResource("ShaderMaterial_iqijp")
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 128.0
+scale = Vector2(1, 0.2)
+texture_under = ExtResource("2_aklcq")
+texture_over = ExtResource("2_aklcq")
+texture_progress = ExtResource("2_aklcq")
+script = ExtResource("3_cru50")
