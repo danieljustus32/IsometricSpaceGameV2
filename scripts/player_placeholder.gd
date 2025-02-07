@@ -20,30 +20,21 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	# Handle movement
-	var forward = camera_pivot.transform.basis.z.normalized() * SPEED
-	if Input.is_action_pressed("move_up"):
-		transform.origin += -forward
-		animation_player.play("Running_B")
-	if Input.is_action_pressed("move_down"):
-		transform.origin += forward
-	if Input.is_action_pressed("move_right"):
-		transform.origin += -forward.cross(Vector3.UP) / 1.5
-		animation_player.play("Running_Strafe_Right")
-	if Input.is_action_pressed("move_left"):
-		transform.origin += forward.cross(Vector3.UP) / 1.5
-		animation_player.play("Running_Strafe_Left")
-	elif not Input.is_anything_pressed():
-	# Player is idle
-		animation_player.play("Idle")
-	
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	# Which has been done :D
-	# TODO handle gamepads and mobile devices
+	# Get movement input
 	var input_dir := Input.get_vector("move_right", "move_left", "move_down", "move_up")
+	
+	# If there is movement input, determine movement direction
+	if input_dir.length() > 0:
+		var move_dir = (camera_pivot.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		transform.origin += -move_dir * SPEED
 
-		# Handle character rotation to look in the direction of movement
-	# _theta = wrapf(atan2(input_dir.x, input_dir.y) - rotation.y, -PI, PI)
-	# rotation.y += clamp(_rotation_speed * delta, 0, abs(_theta)) * sign(_theta)
+		# Calculate target rotation based on movement direction
+		var target_rotation = atan2(-move_dir.x, -move_dir.z)
+		rotation.y = lerp_angle(rotation.y, target_rotation, _rotation_speed * delta)
+
+		# Play running animation
+		animation_player.play("Running_B")
+	else:
+		animation_player.play("Idle")
+
 	move_and_slide()
