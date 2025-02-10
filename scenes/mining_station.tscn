@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b873uegxl6nh5"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bbx10"]
+size = Vector3(16, 8, 12)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_m34ll"]
+data = PackedVector3Array(-8, 4, 6, 8, 4, 6, -8, -4, 6, 8, 4, 6, 8, -4, 6, -8, -4, 6, 8, 4, -6, -8, 4, -6, 8, -4, -6, -8, 4, -6, -8, -4, -6, 8, -4, -6, 8, 4, 6, 8, 4, -6, 8, -4, 6, 8, 4, -6, 8, -4, -6, 8, -4, 6, -8, 4, -6, -8, 4, 6, -8, -4, -6, -8, 4, 6, -8, -4, 6, -8, -4, -6, 8, 4, 6, -8, 4, 6, 8, 4, -6, -8, 4, 6, -8, 4, -6, 8, 4, -6, -8, -4, 6, 8, -4, 6, -8, -4, -6, 8, -4, 6, 8, -4, -6, -8, -4, -6)
+
+[node name="MiningStation" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+mesh = SubResource("BoxMesh_bbx10")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("ConcavePolygonShape3D_m34ll")

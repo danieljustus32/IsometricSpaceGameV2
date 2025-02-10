@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dxiagph5kvn3o"]
+[gd_scene load_steps=11 format=3 uid="uid://dxiagph5kvn3o"]
 
 [ext_resource type="Texture2D" uid="uid://bn62nc7otk428" path="res://assets/textures/pixelated-moon-background-many-meteorite-250nw-2437644363.png" id="1_71d1a"]
+[ext_resource type="PackedScene" uid="uid://b873uegxl6nh5" path="res://scenes/mining_station.tscn" id="2_dm7dj"]
 [ext_resource type="PackedScene" uid="uid://bqh6kn86nnoox" path="res://scenes/player_placeholder.tscn" id="3_kc21n"]
 [ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="4_cqsyl"]
 [ext_resource type="PackedScene" uid="uid://ccfnbm7t4cp0g" path="res://scenes/lander.tscn" id="4_hw78a"]
@@ -35,6 +36,9 @@ shape = SubResource("BoxShape3D_ppd8p")
 [node name="Walls" type="Node3D" parent="Environment"]
 
 [node name="Props" type="Node3D" parent="Environment"]
+
+[node name="MiningStation" parent="Environment" instance=ExtResource("2_dm7dj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.49929, 0.5, 20.2156)
 
 [node name="Mage" parent="." groups=["Player"] instance=ExtResource("3_kc21n")]
 
