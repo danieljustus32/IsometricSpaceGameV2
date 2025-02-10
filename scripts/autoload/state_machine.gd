@@ -7,7 +7,7 @@ signal health_changed(new_health)
 signal died
 
 func _ready():
-	current_health = 75
+	current_health = max_health
 	emit_signal("health_changed", current_health)  # Notify UI at start
 
 func take_damage(amount: int):
