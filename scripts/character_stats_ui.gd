@@ -3,6 +3,10 @@ extends Control
 @onready var health_bar: TextureProgressBar = $TextureProgressBar
 
 func _ready():
+	# Check if health_bar is valid before trying to access it
+	var world_node = get_tree().root.get_node("World")
+	var world_children = world_node.get_children()
+
 	# Print all the children of the World node
 	get_viewport().size_changed.connect(update_position)
 	update_position()
