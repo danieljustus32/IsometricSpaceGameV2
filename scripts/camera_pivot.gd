@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var player: CharacterBody3D = get_tree().get_nodes_in_group("PlayerCharacter")[0]
+@onready var player: CharacterBody3D = get_tree().get_nodes_in_group("Player")[0]
 @onready var sky_camera: Camera3D = $SkyCamera
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

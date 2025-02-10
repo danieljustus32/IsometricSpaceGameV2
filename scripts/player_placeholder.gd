@@ -1,12 +1,16 @@
 extends CharacterBody3D
 
-@onready var camera_pivot = get_tree().get_nodes_in_group("PlayerCharacter")[1]
+@onready var camera_pivot = get_tree().get_nodes_in_group("Player")[1]
 @export var _rotation_speed : float = TAU
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 const SPEED = 0.1
 const JUMP_VELOCITY = 4.5
 
+func _ready():
+	self.set_meta("player", true)
+
+	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -34,5 +38,11 @@ func _physics_process(delta: float) -> void:
 		animation_player.play("Running_B")
 	else:
 		animation_player.play("Idle")
-
+		
 	move_and_slide()
+	
+func die():
+	print("Player has died! Resetting...")
+	# TODO Implement animations, checkpoints, keep state upon reload, general death logic. This just 
+	# re-instantiates the scene you're in.
+	get_tree().reload_current_scene()

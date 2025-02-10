@@ -8,11 +8,11 @@ func _ready():
 	var world_children = world_node.get_children()
 
 	# Print all the children of the World node
-	print("Children of World:", world_children)	
 	get_viewport().size_changed.connect(update_position)
 	update_position()
 	SignalBus.health_updated.connect(update_health)
-
+	update_health(StateMachine.current_health)
+	
 func update_position():
 	# Ensure that the health bar is valid and positioned correctly
 	if health_bar:
@@ -30,7 +30,7 @@ func update_position():
 		health_bar.position.y = viewport_size.y - health_bar_height - 25  # 25px margin from the bottom
 
 		
-
 func update_health(value: int):
 	if health_bar:
 		health_bar.value = value
+		print("Health updated:", value)  # Debugging

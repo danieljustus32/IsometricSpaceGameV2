@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxiagph5kvn3o"]
+[gd_scene load_steps=10 format=3 uid="uid://dxiagph5kvn3o"]
 
 [ext_resource type="Texture2D" uid="uid://bn62nc7otk428" path="res://assets/textures/pixelated-moon-background-many-meteorite-250nw-2437644363.png" id="1_71d1a"]
 [ext_resource type="PackedScene" uid="uid://bqh6kn86nnoox" path="res://scenes/player_placeholder.tscn" id="3_kc21n"]
 [ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="4_cqsyl"]
 [ext_resource type="PackedScene" uid="uid://ccfnbm7t4cp0g" path="res://scenes/lander.tscn" id="4_hw78a"]
+[ext_resource type="PackedScene" uid="uid://dy255mqqsppve" path="res://scenes/hurt_zone.tscn" id="6_cde58"]
 [ext_resource type="PackedScene" uid="uid://b3yw4o1tddsja" path="res://scenes/character_stats_ui.tscn" id="6_nqqq4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ygp8j"]
@@ -35,14 +36,14 @@ shape = SubResource("BoxShape3D_ppd8p")
 
 [node name="Props" type="Node3D" parent="Environment"]
 
-[node name="Mage" parent="." groups=["PlayerCharacter"] instance=ExtResource("3_kc21n")]
+[node name="Mage" parent="." groups=["Player"] instance=ExtResource("3_kc21n")]
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="Mage"]
 remote_path = NodePath("../../CameraPivot")
 update_rotation = false
 update_scale = false
 
-[node name="CameraPivot" type="Node3D" parent="." groups=["PlayerCharacter"]]
+[node name="CameraPivot" type="Node3D" parent="." groups=["Player"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, 0)
 script = ExtResource("4_cqsyl")
 
@@ -59,3 +60,9 @@ transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
 [node name="CharacterStatsUI" parent="UICanvas" instance=ExtResource("6_nqqq4")]
+
+[node name="HurtZone" parent="." instance=ExtResource("6_cde58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1.49248, 4)
+
+[connection signal="body_entered" from="HurtZone" to="HurtZone" method="_on_body_entered"]
+[connection signal="body_exited" from="HurtZone" to="HurtZone" method="_on_body_exited"]

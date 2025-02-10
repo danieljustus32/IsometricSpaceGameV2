@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy255mqqsppve"]
+
+[ext_resource type="Script" path="res://scripts/hurt_zone.gd" id="1_btbfw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rq22m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s4xr0"]
+
+[node name="HurtZone" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 0
+script = ExtResource("1_btbfw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_rq22m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_s4xr0")
