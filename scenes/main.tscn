@@ -36,14 +36,14 @@ shape = SubResource("BoxShape3D_ppd8p")
 
 [node name="Props" type="Node3D" parent="Environment"]
 
-[node name="Mage" parent="." groups=["Player"] instance=ExtResource("3_kc21n")]
+[node name="Mage" parent="." instance=ExtResource("3_kc21n")]
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="Mage"]
 remote_path = NodePath("../../CameraPivot")
 update_rotation = false
 update_scale = false
 
-[node name="CameraPivot" type="Node3D" parent="." groups=["Player"]]
+[node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, 0)
 script = ExtResource("4_cqsyl")
 
