@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxiagph5kvn3o"]
+[gd_scene load_steps=12 format=3 uid="uid://dxiagph5kvn3o"]
 
 [ext_resource type="Texture2D" uid="uid://bn62nc7otk428" path="res://assets/textures/pixelated-moon-background-many-meteorite-250nw-2437644363.png" id="1_71d1a"]
 [ext_resource type="PackedScene" uid="uid://b873uegxl6nh5" path="res://scenes/mining_station.tscn" id="2_dm7dj"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ccfnbm7t4cp0g" path="res://scenes/lander.tscn" id="4_hw78a"]
 [ext_resource type="PackedScene" uid="uid://dy255mqqsppve" path="res://scenes/hurt_zone.tscn" id="6_cde58"]
 [ext_resource type="PackedScene" uid="uid://b3yw4o1tddsja" path="res://scenes/character_stats_ui.tscn" id="6_nqqq4"]
+[ext_resource type="PackedScene" uid="uid://b0tdemj81tj6x" path="res://scenes/building_placement_menu.tscn" id="7_ejytg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ygp8j"]
 
@@ -64,6 +65,8 @@ transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
 [node name="CharacterStatsUI" parent="UICanvas" instance=ExtResource("6_nqqq4")]
+
+[node name="BuildingPlacementMenu" parent="UICanvas" instance=ExtResource("7_ejytg")]
 
 [node name="HurtZone" parent="." instance=ExtResource("6_cde58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1.49248, 4)

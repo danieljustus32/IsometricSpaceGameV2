@@ -45,4 +45,6 @@ func die():
 	print("Player has died! Resetting...")
 	# TODO Implement animations, checkpoints, keep state upon reload, general death logic. This just 
 	# re-instantiates the scene you're in.
+	# TODO You'll fix this when making an actual death function but player respawns with no health, gotta
+	# re-instantiate the state machine most likely unless there's a built in way
 	get_tree().reload_current_scene()
