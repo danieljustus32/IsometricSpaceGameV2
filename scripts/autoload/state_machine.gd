@@ -2,6 +2,7 @@ extends Node
 
 @export var max_health: int = 100
 var current_health: int
+var player: Node3D  # This will store a reference to the player
 
 signal health_changed(new_health)
 signal died

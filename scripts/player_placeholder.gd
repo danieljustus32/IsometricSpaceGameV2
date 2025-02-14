@@ -9,7 +9,7 @@ const JUMP_VELOCITY = 4.5
 
 func _ready():
 	self.set_meta("player", true)
-
+	StateMachine.player = self
 	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
