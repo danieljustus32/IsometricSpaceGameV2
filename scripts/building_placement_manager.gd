@@ -2,9 +2,11 @@ extends Node3D
 
 @export var grid_size: float = 1.0  # Grid-based placement (1m x 1m)
 @export var placement_offset: float = 10.0  # Initial distance in front of player
-@export var update_rate: float = 0.2  # How often to update position (in seconds)
+@export var update_rate: float = 0.1  # How often to update position (in seconds)
 
 @onready var player: CharacterBody3D = StateMachine.player
+@onready var camera_pivot: Node3D = StateMachine.camera_pivot
+
 var selected_building_scene: PackedScene
 var ghost_building: Node3D  # Temporary preview before placement
 var is_placing_building = false  
@@ -49,6 +51,7 @@ func _on_building_selected(building_scene: PackedScene):
 	_update_ghost_position()
 
 	player.set_physics_process(false)
+	camera_pivot.set_process(false)
 	move_timer.start()  # Start movement update timer
 
 func _process(delta):
