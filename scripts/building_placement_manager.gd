@@ -1,69 +1,114 @@
 extends Node3D
 
 @export var grid_size: float = 1.0  # Grid-based placement (1m x 1m)
-@export var placement_offset: float = 10.0  # Distance in front of player
-@onready var player: CharacterBody3D = StateMachine.player
+@export var placement_offset: float = 10.0  # Initial distance in front of player
+@export var update_rate: float = 0.2  # How often to update position (in seconds)
 
+@onready var player: CharacterBody3D = StateMachine.player
 var selected_building_scene: PackedScene
 var ghost_building: Node3D  # Temporary preview before placement
-var is_placing_building = false  # Tracks if a building is being placed
+var is_placing_building = false  
+var ghost_position: Vector3  # Position for manual movement
+var move_input: Vector2 = Vector2.ZERO  # Stores last movement input
+var rotation_angle: float = 0.0  # Tracks current rotation of the building
+
+var move_timer: Timer
 
 func _ready():
-	# Listen for when a building is selected from the menu
 	SignalBus.building_selected.connect(_on_building_selected)
+
+	# Create Timer for movement updates
+	move_timer = Timer.new()
+	move_timer.wait_time = update_rate
+	move_timer.autostart = false
+	move_timer.one_shot = false
+	move_timer.timeout.connect(_update_ghost_position)
+	add_child(move_timer)
 
 func _on_building_selected(building_scene: PackedScene):
 	if is_placing_building:
-		return  # Prevent selecting a new building while placing
+		return  
 
 	is_placing_building = true
-
-	# Deselect any focused UI element to prevent button selection issues
 	get_viewport().gui_release_focus()
 
-	# Remove existing ghost building if present
 	if ghost_building:
 		ghost_building.queue_free()
 
 	selected_building_scene = building_scene
 	ghost_building = selected_building_scene.instantiate()
-	ghost_building.set_collision_layer_value(1, false)  # Disable collisions during preview
+	ghost_building.set_collision_layer_value(1, false)
 
 	add_child(ghost_building)
+
+	# Initialize position in front of player
+	var forward_dir = player.global_transform.basis.z
+	ghost_position = player.global_transform.origin + forward_dir * placement_offset
+	ghost_position.y = 0.5  
+	rotation_angle = 0.0  # Reset rotation when selecting a new building
 	_update_ghost_position()
 
+	player.set_physics_process(false)
+	move_timer.start()  # Start movement update timer
 
 func _process(delta):
-	if ghost_building:
-		_update_ghost_position()
-		if Input.is_action_just_pressed("confirm_building"):
-			place_building()
+	if not ghost_building:
+		return
+
+	# Capture movement input but only apply it at set intervals
+	move_input = Input.get_vector("move_right", "move_left", "move_down", "move_up")
+
+	# Check for rotation inputs
+	if Input.is_action_just_pressed("rotate_camera_right"):
+		rotation_angle += 90.0
+		_update_ghost_rotation()
+
+	if Input.is_action_just_pressed("rotate_camera_left"):
+		rotation_angle -= 90.0
+		_update_ghost_rotation()
+
+	if Input.is_action_just_pressed("confirm_building"):
+		place_building()
+
+	if Input.is_action_just_pressed("cancel_building"):
+		cancel_building()
 
 func _update_ghost_position():
-	if not player or not ghost_building:
-		return
+	if move_input.length() > 0:
+		ghost_position.x += move_input.x * grid_size
+		ghost_position.z += move_input.y * grid_size
 	
-	# Get the position in front of the player
-	var forward_dir = player.global_transform.basis.z
-	var target_pos = player.global_transform.origin + forward_dir * placement_offset
-	
-	# Snap position to grid
-	target_pos.x = snapped(target_pos.x, grid_size)
-	target_pos.z = snapped(target_pos.z, grid_size)
-	target_pos.y = 0.5  # Keep buildings slightly off the ground
+	# Snap to grid
+	ghost_position.x = snapped(ghost_position.x, grid_size)
+	ghost_position.z = snapped(ghost_position.z, grid_size)
+	ghost_building.global_transform.origin = ghost_position
 
-	ghost_building.global_transform.origin = target_pos
+func _update_ghost_rotation():
+	# Apply rotation to the ghost building
+	ghost_building.rotation_degrees.y = rotation_angle
 
 func place_building():
 	if not selected_building_scene or not ghost_building:
 		return
 
-	# Finalize placement
 	var placed_building = selected_building_scene.instantiate()
 	placed_building.global_transform.origin = ghost_building.global_transform.origin
+	placed_building.rotation_degrees.y = rotation_angle  # Apply final rotation
+
 	add_child(placed_building)
 
-	# Cleanup
 	ghost_building.queue_free()
 	ghost_building = null
-	is_placing_building = false  # Reset flag
+	is_placing_building = false  
+
+	move_timer.stop()  # Stop updating movement
+	player.set_physics_process(true)
+
+func cancel_building():
+	if ghost_building:
+		ghost_building.queue_free()
+		ghost_building = null
+
+	is_placing_building = false
+	move_timer.stop()  
+	player.set_physics_process(true)
