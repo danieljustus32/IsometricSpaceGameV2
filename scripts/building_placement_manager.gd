@@ -15,9 +15,13 @@ var move_input: Vector2 = Vector2.ZERO  # Stores last movement input
 var rotation_angle: float = 0.0  # Tracks current rotation of the building
 
 var move_timer: Timer
+var tween: Tween
 
 func _ready():
 	SignalBus.building_selected.connect(_on_building_selected)
+
+	# Initialize tween for rotation
+	tween = get_tree().create_tween()
 
 	# Create Timer for movement updates
 	move_timer = Timer.new()
@@ -87,8 +91,12 @@ func _update_ghost_position():
 	ghost_building.global_transform.origin = ghost_position
 
 func _update_ghost_rotation():
-	# Apply rotation to the ghost building
-	ghost_building.rotation_degrees.y = rotation_angle
+	# Stop any previous rotation tween
+	tween.stop()
+
+	# Create a new tween for smooth rotation over 0.5 seconds
+	tween = get_tree().create_tween()
+	tween.tween_property(ghost_building, "rotation_degrees:y", rotation_angle, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func place_building():
 	if not selected_building_scene or not ghost_building:
