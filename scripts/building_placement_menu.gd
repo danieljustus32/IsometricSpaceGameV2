@@ -3,7 +3,8 @@ extends Panel
 @onready var button_container: GridContainer = $MarginContainer/GridContainer
 @onready var margin_container: MarginContainer = $MarginContainer
 @onready var building_placement_manager: Node3D = $BuildingPlacementManager
-@onready var tween = get_tree().create_tween()
+
+var tween: Tween
 
 @export var building_scenes: Array[PackedScene]  # Assign building scenes in the Inspector
 
@@ -47,7 +48,6 @@ func toggle_menu():
 	var target_y = get_viewport().size.y * (1 - 2.0 / 3.0) if is_visible else get_viewport().size.y
 
 	# Animate movement
-	tween.stop()
 	tween = get_tree().create_tween()
 	tween.tween_property(self, "position:y", target_y, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 

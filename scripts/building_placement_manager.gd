@@ -16,7 +16,6 @@ var rotation_angle: float = 0.0  # Tracks current rotation of the building
 var is_rotating = false  # Track if rotation is ongoing
 
 var move_timer: Timer
-var tween: Tween
 
 func _ready():
 	SignalBus.building_selected.connect(_on_building_selected)
