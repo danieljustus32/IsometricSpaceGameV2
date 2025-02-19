@@ -24,3 +24,5 @@ layout_mode = 2
 
 [node name="BuildingPlacementManager" type="Node3D" parent="."]
 script = ExtResource("3_6xu34")
+placement_offset = 25.0
+update_rate = 0.2

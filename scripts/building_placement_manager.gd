@@ -13,15 +13,13 @@ var is_placing_building = false
 var ghost_position: Vector3  # Position for manual movement
 var move_input: Vector2 = Vector2.ZERO  # Stores last movement input
 var rotation_angle: float = 0.0  # Tracks current rotation of the building
+var is_rotating = false  # Track if rotation is ongoing
 
 var move_timer: Timer
 var tween: Tween
 
 func _ready():
 	SignalBus.building_selected.connect(_on_building_selected)
-
-	# Initialize tween for rotation
-	tween = get_tree().create_tween()
 
 	# Create Timer for movement updates
 	move_timer = Timer.new()
@@ -67,11 +65,11 @@ func _process(delta):
 
 	# Check for rotation inputs
 	if Input.is_action_just_pressed("rotate_camera_right"):
-		rotation_angle += 90.0
+		rotation_angle -= 90.0
 		_update_ghost_rotation()
 
 	if Input.is_action_just_pressed("rotate_camera_left"):
-		rotation_angle -= 90.0
+		rotation_angle += 90.0
 		_update_ghost_rotation()
 
 	if Input.is_action_just_pressed("confirm_building"):
@@ -79,6 +77,22 @@ func _process(delta):
 
 	if Input.is_action_just_pressed("cancel_building"):
 		cancel_building()
+		
+	if is_rotating and ghost_building:
+		# Perform smooth interpolation every frame
+		var current_rotation_rad = deg_to_rad(ghost_building.rotation_degrees.y)
+		var target_rotation_rad = deg_to_rad(rotation_angle)
+
+		# Lerp towards target
+		var new_rotation_rad = lerp_angle(current_rotation_rad, target_rotation_rad, 5.0 * delta)
+
+		# Apply new rotation
+		ghost_building.rotation_degrees.y = rad_to_deg(new_rotation_rad)
+
+		# Stop rotating if close enough to target
+		if abs(ghost_building.rotation_degrees.y - rotation_angle) < 0.1:
+			ghost_building.rotation_degrees.y = rotation_angle
+			is_rotating = false  # Stop further updates
 
 func _update_ghost_position():
 	if move_input.length() > 0:
@@ -91,13 +105,9 @@ func _update_ghost_position():
 	ghost_building.global_transform.origin = ghost_position
 
 func _update_ghost_rotation():
-	# Stop any previous rotation tween
-	tween.stop()
+	is_rotating = true
 
-	# Create a new tween for smooth rotation over 0.5 seconds
-	tween = get_tree().create_tween()
-	tween.tween_property(ghost_building, "rotation_degrees:y", rotation_angle, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-
+	
 func place_building():
 	if not selected_building_scene or not ghost_building:
 		return
@@ -114,6 +124,7 @@ func place_building():
 
 	move_timer.stop()  # Stop updating movement
 	player.set_physics_process(true)
+	camera_pivot.set_process(true)
 
 func cancel_building():
 	if ghost_building:
@@ -123,3 +134,4 @@ func cancel_building():
 	is_placing_building = false
 	move_timer.stop()  
 	player.set_physics_process(true)
+	camera_pivot.set_process(true)
