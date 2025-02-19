@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 		
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("zoom_in"):
-		if sky_camera.size > 5:
+		if sky_camera.size > 20:
 			sky_camera.size -= 1
 			
 	if Input.is_action_just_pressed("zoom_out"):

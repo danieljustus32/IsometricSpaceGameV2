@@ -46,7 +46,7 @@ func _on_building_selected(building_scene: PackedScene):
 
 	# Initialize position in front of player
 	var forward_dir = player.global_transform.basis.z
-	ghost_position = player.global_transform.origin + forward_dir * placement_offset
+	ghost_position = player.global_transform.origin + forward_dir * (placement_offset + 5)
 	ghost_position.y = 0.5  
 	rotation_angle = 0.0  # Reset rotation when selecting a new building
 	_update_ghost_position()
@@ -95,9 +95,27 @@ func _process(delta):
 
 func _update_ghost_position():
 	if move_input.length() > 0:
-		ghost_position.x += move_input.x * grid_size
-		ghost_position.z += move_input.y * grid_size
-	
+		# Get the camera's forward and right directions
+		var forward = -camera_pivot.global_transform.basis.z  # Camera's forward direction
+		var right = -camera_pivot.global_transform.basis.x  # Camera's right direction
+
+		# Transform input direction by the camera's rotation
+		var movement_direction = (right * move_input.x) + (forward * move_input.y)
+
+		# Normalize and apply movement based on grid size
+		movement_direction = movement_direction.normalized() * grid_size
+
+		# Calculate the new potential position
+		var new_position = ghost_position + movement_direction
+
+		# Ensure ghost building doesn't get closer than placement_offset
+		var player_to_ghost = new_position - player.global_transform.origin
+		var distance = player_to_ghost.length()
+
+		if distance >= placement_offset:
+			# Apply movement only if it doesn't violate min distance
+			ghost_position = new_position
+
 	# Snap to grid
 	ghost_position.x = snapped(ghost_position.x, grid_size)
 	ghost_position.z = snapped(ghost_position.z, grid_size)
