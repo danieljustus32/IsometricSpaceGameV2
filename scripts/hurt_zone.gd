@@ -13,10 +13,8 @@ func _process(delta):
 		apply_damage()
 
 func apply_damage():
-	print("Applying damage... Characters inside:", characters_inside.size())  # Debugging
 	for character in characters_inside:
 		if character.has_meta("player"):  # Ensure it's the player
-			print("Damaging player...")
 			var current_health = StateMachine.current_health
 			var new_health = max(current_health - damage_per_second, 0)
 			

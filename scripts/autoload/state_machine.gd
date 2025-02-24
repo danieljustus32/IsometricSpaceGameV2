@@ -2,6 +2,8 @@ extends Node
 
 @export var max_health: int = 100
 var current_health: int
+var player: Node3D  # This will store a reference to the player
+var camera_pivot: Node3D # Our player's camera pivot, which the camera follows and rotates around
 
 signal health_changed(new_health)
 signal died

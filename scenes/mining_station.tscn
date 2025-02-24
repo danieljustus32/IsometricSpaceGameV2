@@ -1,4 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b873uegxl6nh5"]
+[gd_scene load_steps=5 format=3 uid="uid://b873uegxl6nh5"]
+
+[ext_resource type="Texture2D" uid="uid://l5fxu8gqv4bl" path="res://assets/textures/grid_1024x1024/grid_lime_1024x1024.png" id="1_yadqf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q6fa"]
+albedo_texture = ExtResource("1_yadqf")
 
 [sub_resource type="BoxMesh" id="BoxMesh_bbx10"]
 size = Vector3(16, 8, 12)
@@ -10,6 +15,7 @@ data = PackedVector3Array(-8, 4, 6, 8, 4, 6, -8, -4, 6, 8, 4, 6, 8, -4, 6, -8, -
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+material_override = SubResource("StandardMaterial3D_4q6fa")
 mesh = SubResource("BoxMesh_bbx10")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
