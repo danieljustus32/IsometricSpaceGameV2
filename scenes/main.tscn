@@ -59,7 +59,9 @@ projection = 1
 size = 30.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.878108, -0.123835, -0.462159, 0.455055, -0.0822708, 0.886655, -0.147821, -0.988887, -0.015891, 0, 36, 0)
+transform = Transform3D(0.878108, -0.123835, -0.462159, 0.471849, 0.384169, 0.793582, 0.0792739, -0.91492, 0.395773, 0, 36, 0)
+shadow_enabled = true
+shadow_normal_bias = 1.0
 
 [node name="Lander" parent="." instance=ExtResource("4_hw78a")]
 
