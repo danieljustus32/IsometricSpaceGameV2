@@ -39,7 +39,7 @@ shape = SubResource("BoxShape3D_ppd8p")
 [node name="Props" type="Node3D" parent="Environment"]
 
 [node name="MiningStation" parent="Environment" instance=ExtResource("2_dm7dj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.49929, 0.5, 20.2156)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.499, 1, 20.216)
 
 [node name="Mage" parent="." groups=["Player"] instance=ExtResource("3_kc21n")]
 unique_name_in_owner = true
@@ -72,7 +72,7 @@ shadow_normal_bias = 1.0
 [node name="BuildingPlacementMenu" parent="UICanvas" instance=ExtResource("7_ejytg")]
 
 [node name="HurtZone" parent="." instance=ExtResource("6_cde58")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1.49248, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1, 4)
 
 [connection signal="body_entered" from="HurtZone" to="HurtZone" method="_on_body_entered"]
 [connection signal="body_exited" from="HurtZone" to="HurtZone" method="_on_body_exited"]
